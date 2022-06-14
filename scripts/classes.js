@@ -97,10 +97,11 @@ class Player {
     }
 
     draw() {
+        ctx.fillText(this.name, this.x, this.y - this.radius - 10);
         drawCircle(this.color, this.x, this.y, this.radius);
     }
 
-
+    /* в данной функции идет проверка на нажатие клавиш и организация движений */
     update() {
         if (keysPressed['KeyW'] || keysPressed['ArrowUp']) {
             this.y -= this.speed
@@ -113,6 +114,30 @@ class Player {
         }
         if (keysPressed['KeyS'] || keysPressed['ArrowDown']) {
             this.y += this.speed
+        }
+        this.checkCollision();
+    }
+
+    /* функция проверки шарика на столкновение с другими объектами (стенами) */
+    checkCollision() {
+        for (let wall of allObjects['walls']) {
+            if (wall.type == 'v') {
+                if ( (this.x < wall.x + this.radius) && (this.x > wall.x - this.radius) ) {
+                    if (this.x < wall.x) {
+                        this.x = wall.x - this.radius
+                    } else if (this.x > wall.x) {
+                        this.x = wall.x + this.radius
+                    }
+                }
+            } else if (wall.type == 'h') {
+                if ( (this.y < wall.y + this.radius) && (this.y > wall.y - this.radius) ) {
+                    if (this.y < wall.y) {
+                        this.y = wall.y - this.radius
+                    } else if (this.y > wall.y) {
+                        this.y = wall.y + this.radius
+                    }
+                }
+            }
         }
     }
 

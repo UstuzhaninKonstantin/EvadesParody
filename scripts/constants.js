@@ -11,6 +11,8 @@ canvas.height = window.innerHeight;
 const keysPressed = {};
 
 const ctx = canvas.getContext('2d');
+ctx.font = '13px sans-serif';
+ctx.textAlign = 'center';
 
 const allObjects = {
     "circles": [],
