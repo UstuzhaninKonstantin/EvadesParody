@@ -5,7 +5,7 @@ functions.js
 которых работа программы невозможна
 */
 
-import { ctx } from "./constants.js";
+import { ctx, keysPressed } from "./constants.js";
 
 
 /* рисует шарики разных координат, размеров и цветов
@@ -18,10 +18,9 @@ function drawCircle(color, x, y, radius) {
 }
 
 
-/* функция очищает канвас и вызывает функцию update
+/* функция вызывает функцию update
 для все объектов */
 function objUpdate(allObjects) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let arr of Object.values(allObjects)) {
         for (let elem of arr) {
             elem.update();
@@ -30,4 +29,26 @@ function objUpdate(allObjects) {
 }
 
 
-export { objUpdate, drawCircle }
+/* функция очищает канвас и вызывает функцию draw
+для все объектов */
+function objRender(allObjects) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let arr of Object.values(allObjects)) {
+        for (let elem of arr) {
+            elem.draw();
+        }
+    }
+}
+
+
+function keydownCheck(event) {
+    keysPressed[event.code] = true;
+}
+
+
+function keyupCheck(event) {
+    keysPressed[event.code] = false;
+}
+
+
+export { objUpdate, objRender, drawCircle, keydownCheck, keyupCheck }
