@@ -18,6 +18,9 @@ function createObjects() {
     allObjects['walls'].push(new Wall(10, 510, 1000, 1, '#000000', 'h'));
     allObjects['walls'].push(new Wall(10, 10, 1, 500, '#000000', 'v'));
     allObjects['walls'].push(new Wall(1010, 10, 1, 500, '#000000', 'v'));
+
+    allObjects['saveZoneWalls'].push(new Wall(100, 10, 1, 500, '#808080', 'v'));
+    allObjects['saveZoneWalls'].push(new Wall(910, 10, 1, 500, '#808080', 'v'));
 }
 
 const player = new Player(500, 250, 15, 'imposter', '#ff00ff', 3);

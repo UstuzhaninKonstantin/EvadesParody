@@ -17,7 +17,8 @@ ctx.textAlign = 'center';
 const allObjects = {
     "circles": [],
     "walls": [],
-    "player": []
+    "player": [],
+    "saveZoneWalls": []
 };
 
 

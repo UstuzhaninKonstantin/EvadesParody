@@ -7,7 +7,7 @@ import { ctx, allObjects, keysPressed } from "./constants.js";
 import { drawCircle } from "./functions.js";
 
 
-/* класс стены. Используется в работе с шаром(для коллизий). Может
+/* класс стены. Используется в работе с шаром и игроком(для коллизий). Может
 быть разных координат, размеров и цветов.
 обязательно задать ему тип: v(vertical)/h(horizontal)
 пример создания:
@@ -31,10 +31,14 @@ class Wall {
     }
 
     update() {
-        // я не знаю что здесь нужно
+        /* в этой функции не нужно ничего писать, но если
+        ее удалить, то будет ошибка, поэтому она есть */
     }
 
 }
+
+
+class SaveZoneWall extends Wall {}
 
 
 /* обычный шарик который просто летает с заданной скоростью
@@ -68,7 +72,7 @@ class Circle {
 
     /* функция проверки шарика на столкновение с другими объектами (стенами) */
     checkCollision() {
-        for (let wall of allObjects['walls']) {
+        for (let wall of allObjects['walls'].concat(allObjects['saveZoneWalls'])) {
             if (wall.type == 'v') {
                 if ( (this.x <= wall.x + this.radius) && (this.x >= wall.x - this.radius) ) {
                     this.vx *= -1;
@@ -84,7 +88,15 @@ class Circle {
 }
 
 
-/* класс игрока. */
+/* класс игрока. в данном проекте игрок - шар, который изменяет свою
+позицию взависимости от нажатых пользователем клавиш. то есть игрок - 
+это своего рода шарик, но двигается он не по случайно заданому направлению,
+а взависимости от указаний пользователя с помощью клавиатуры
+Пример создания
+new Player(500, 250, 15, 'test', '#ff00ff', 3); 
+это игрок с начальными координатами (500, 250) радиусом в
+15px с именем "test" розового цвета со скоростью передвижения 3.
+*/
 class Player {
 
     constructor(x, y, radius, name, color, speed) {
@@ -144,4 +156,4 @@ class Player {
 }
 
 
-export { Wall, Circle, Player }
+export { Wall, SaveZoneWall, Circle, Player }
