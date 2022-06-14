@@ -3,7 +3,7 @@ classes.js
 файл только для классов проекта
 */
 
-import { ctx, allObjects } from "./constants.js";
+import { ctx, allObjects, keysPressed } from "./constants.js";
 import { drawCircle } from "./functions.js";
 
 
@@ -102,21 +102,17 @@ class Player {
 
 
     update() {
-        // insert some collision checks
-    }
-    
-    playerMovement(event) {
-        if (event.code == 'KeyD' || event.code == 'ArrowRight') {
-            this.x += this.speed;
+        if (keysPressed['KeyW'] || keysPressed['ArrowUp']) {
+            this.y -= this.speed
         }
-        if (event.code == 'KeyA' || event.code == 'ArrowLeft') {
-            this.x -= this.speed;
+        if (keysPressed['KeyD'] || keysPressed['ArrowRight']) {
+            this.x += this.speed
         }
-        if (event.code == 'KeyW' || event.code == 'ArrowUp') {
-            this.y -= this.speed;
+        if (keysPressed['KeyA'] || keysPressed['ArrowLeft']) {
+            this.x -= this.speed
         }
-        if (event.code == 'KeyS' || event.code == 'ArrowDown') {
-            this.y += this.speed;
+        if (keysPressed['KeyS'] || keysPressed['ArrowDown']) {
+            this.y += this.speed
         }
     }
 

@@ -5,7 +5,7 @@ functions.js
 которых работа программы невозможна
 */
 
-import { ctx } from "./constants.js";
+import { ctx, keysPressed } from "./constants.js";
 
 
 /* рисует шарики разных координат, размеров и цветов
@@ -41,4 +41,14 @@ function objRender(allObjects) {
 }
 
 
-export { objUpdate, objRender, drawCircle }
+function keydownCheck(event) {
+    keysPressed[event.code] = true;
+}
+
+
+function keyupCheck(event) {
+    keysPressed[event.code] = false;
+}
+
+
+export { objUpdate, objRender, drawCircle, keydownCheck, keyupCheck }
