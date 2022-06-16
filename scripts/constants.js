@@ -14,12 +14,13 @@ const ctx = canvas.getContext('2d');
 ctx.font = '13px sans-serif';
 ctx.textAlign = 'center';
 
+const movingObjects = ['circles', 'walls', 'saveZoneWalls'];
 const allObjects = {
     "circles": [],
     "walls": [],
-    "player": [],
-    "saveZoneWalls": []
+    "saveZoneWalls": [],
+    "player": []
 };
 
 
-export { canvas, ctx, allObjects, keysPressed }
+export { canvas, ctx, allObjects, keysPressed, movingObjects }

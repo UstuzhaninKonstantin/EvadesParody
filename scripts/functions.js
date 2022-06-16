@@ -5,7 +5,7 @@ functions.js
 которых работа программы невозможна
 */
 
-import { ctx, keysPressed } from "./constants.js";
+import { ctx, keysPressed, allObjects, movingObjects } from "./constants.js";
 
 
 /* рисует шарики разных координат, размеров и цветов
@@ -51,4 +51,14 @@ function keyupCheck(event) {
 }
 
 
-export { objUpdate, objRender, drawCircle, keydownCheck, keyupCheck }
+function moveCamera(x, y) {
+    for (let key of movingObjects) {
+        for (let obj of allObjects[key]) {
+            obj.x += x;
+            obj.y += y;
+        }
+    }
+}
+
+
+export { objUpdate, objRender, drawCircle, keydownCheck, keyupCheck, moveCamera }

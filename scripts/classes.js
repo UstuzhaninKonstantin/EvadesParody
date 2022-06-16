@@ -3,8 +3,8 @@ classes.js
 файл только для классов проекта
 */
 
-import { ctx, allObjects, keysPressed } from "./constants.js";
-import { drawCircle } from "./functions.js";
+import { ctx, allObjects, keysPressed, movingObjects } from "./constants.js";
+import { drawCircle, moveCamera } from "./functions.js";
 
 
 /* класс стены. Используется в работе с шаром и игроком(для коллизий). Может
@@ -109,6 +109,7 @@ class Player {
     }
 
     draw() {
+        ctx.fillStyle = '#000000';
         ctx.fillText(this.name, this.x, this.y - this.radius - 10);
         drawCircle(this.color, this.x, this.y, this.radius);
     }
@@ -116,18 +117,29 @@ class Player {
     /* в данной функции идет проверка на нажатие клавиш и организация движений */
     update() {
         if (keysPressed['KeyW'] || keysPressed['ArrowUp']) {
-            this.y -= this.speed
+            moveCamera(0, this.speed);
+            if (this.checkCollision()) {
+                moveCamera(0, -this.speed);
+            }
         }
         if (keysPressed['KeyD'] || keysPressed['ArrowRight']) {
-            this.x += this.speed
+            moveCamera(-this.speed, 0);
+            if (this.checkCollision()) {
+                moveCamera(this.speed, );
+            }
         }
         if (keysPressed['KeyA'] || keysPressed['ArrowLeft']) {
-            this.x -= this.speed
+            moveCamera(this.speed, 0);
+            if (this.checkCollision()) {
+                moveCamera(-this.speed, 0);
+            }
         }
         if (keysPressed['KeyS'] || keysPressed['ArrowDown']) {
-            this.y += this.speed
+            moveCamera(0, -this.speed);
+            if (this.checkCollision()) {
+                moveCamera(0, this.speed);
+            }
         }
-        this.checkCollision();
     }
 
     /* функция проверки шарика на столкновение с другими объектами (стенами) */
@@ -135,20 +147,14 @@ class Player {
         for (let wall of allObjects['walls']) {
             if (wall.type == 'v') {
                 if ( (this.x < wall.x + this.radius) && (this.x > wall.x - this.radius) ) {
-                    if (this.x < wall.x) {
-                        this.x = wall.x - this.radius
-                    } else if (this.x > wall.x) {
-                        this.x = wall.x + this.radius
-                    }
+                    return true;
                 }
             } else if (wall.type == 'h') {
                 if ( (this.y < wall.y + this.radius) && (this.y > wall.y - this.radius) ) {
-                    if (this.y < wall.y) {
-                        this.y = wall.y - this.radius
-                    } else if (this.y > wall.y) {
-                        this.y = wall.y + this.radius
-                    }
+                    return true;
                 }
+            } else {
+                return false;
             }
         }
     }
